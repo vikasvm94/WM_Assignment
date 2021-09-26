@@ -1,8 +1,8 @@
 package com.vikas.apod.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -10,20 +10,27 @@ import com.vikas.apod.R
 import com.vikas.apod.model.APODResponse
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * A main activity which is responsible for showing the astronomy picture of the day along with details
+ * If the internet is available it displays the current day picture else it displays previous day picture if available.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
-    private val TAG = "MainActivity"
 
-    private val apobObserver = Observer<APODResponse> {
-        if (it != null && !it.isFailure) {
-            Log.e(TAG, "Success ")
+    /**
+     * A observer for receiving astronomy picture of the day response from API.
+     */
+    private val apodObserver = Observer<APODResponse> {
+
+        if (it != null && it.errorState == null) {
+
             Glide.with(this).load(it.hdImageUrl).into(image)
             detailTextView.text = it.explanation
-
-             imageTitle.text = it.title
+            imageTitle.text = it.title
+            errorText.isVisible = it.isCached
         } else {
-            Log.e(TAG, "failure ")
+            showErrorMessage()
         }
     }
 
@@ -32,8 +39,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainViewModel.getAPOD().observe(this, apobObserver)
+        mainViewModel.getAPOD(this).observe(this, apodObserver)
 
+    }
+
+    /**
+     * A method which displays error message when there is no data available
+     */
+    private fun showErrorMessage() {
+        scrollView.isVisible = false
+        errorText.text = getString(R.string.general_error)
+        errorText.isVisible = true
     }
 
 }

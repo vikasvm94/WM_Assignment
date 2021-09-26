@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NASA-APOD</string>
+    <string name="general_error">Something went wrong. Please check your network connection</string>
+    <string name="error_message">We are not connected to the internet, showing you the last image we have.</string>
 </resources>

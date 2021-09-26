@@ -3,11 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#010935"
     android:layout_height="match_parent"
+    android:background="#010935"
     tools:context=".ui.MainActivity">
 
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:text="@string/error_message"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,10 +41,10 @@
                 android:id="@+id/imageTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="22sp"
                 android:gravity="center"
                 android:padding="2dp"
+                android:textColor="@color/white"
+                android:textSize="22sp"
 
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,23 +52,23 @@
 
             <View
                 android:layout_width="match_parent"
-                android:background="#ffffff"
-                android:alpha="0.5"
+                android:layout_height="2dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
                 android:layout_marginTop="2dp"
-                app:layout_constraintTop_toBottomOf="@id/imageTitle"
+                android:layout_marginEnd="4dp"
+                android:alpha="0.5"
+                android:background="#ffffff"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_height="2dp"/>
+                app:layout_constraintTop_toBottomOf="@id/imageTitle" />
 
             <TextView
                 android:id="@+id/detailTextView"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:padding="5dp"
-                android:layout_marginTop="2dp"
-                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageTitle" />
 

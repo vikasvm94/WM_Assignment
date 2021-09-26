@@ -20,5 +20,6 @@ data class APODResponse(
     @SerializedName("url")
     val imageUrl: String = "",
 
-    var isFailure: Boolean = false
+    var errorState: ErrorState? = null,
+    var isCached: Boolean = false
 )
