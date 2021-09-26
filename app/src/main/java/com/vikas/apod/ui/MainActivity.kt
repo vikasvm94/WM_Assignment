@@ -1,13 +1,19 @@
 package com.vikas.apod.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.vikas.apod.ACTION_NETWORK_CHANGE
 import com.vikas.apod.R
 import com.vikas.apod.model.APODResponse
+import com.vikas.apod.repository.NetworkUtilities
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,9 +45,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         getDate()
+        getAstronomyPictureOfTheDay()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //Registering for connectivity change
+        val intentFilter = IntentFilter(ACTION_NETWORK_CHANGE)
+        registerReceiver(networkReceiver, intentFilter)
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        //Unregistering for coonectivty change
+        unregisterReceiver(networkReceiver)
+    }
+
+    /**
+     * A method to fetch astronomy picture of the day from NASA
+     */
+    private fun getAstronomyPictureOfTheDay() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mainViewModel.getAPOD(this).observe(this, apodObserver)
-
     }
 
 
@@ -63,6 +89,19 @@ class MainActivity : AppCompatActivity() {
         scrollView.isVisible = false
         errorText.text = getString(R.string.general_error)
         errorText.isVisible = true
+    }
+
+    private val networkReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.let {
+                if (it.action == ACTION_NETWORK_CHANGE) {
+                    if (NetworkUtilities.isNetworkConnected(applicationContext)) {
+                        getAstronomyPictureOfTheDay()
+                    }
+                }
+            }
+        }
+
     }
 
 }
