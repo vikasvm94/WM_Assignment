@@ -11,15 +11,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * A central source of data, which will communicate with network to get data.
+ *
+ */
 object Repository {
 
     private val TAG = "Repository"
     fun getAPOD(context: Context): MutableLiveData<APODResponse> {
-
-
         val apodLiveData: MutableLiveData<APODResponse> = MutableLiveData()
-
-
         val apodCallback =
             NetworkUtilities.getRetrofit(context).create(RestClient::class.java).getAPOD(API_KEY)
 
@@ -51,7 +51,6 @@ object Repository {
                         )
                     )
             }
-
         })
         return apodLiveData
     }

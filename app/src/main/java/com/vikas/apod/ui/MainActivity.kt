@@ -22,9 +22,7 @@ class MainActivity : AppCompatActivity() {
      * A observer for receiving astronomy picture of the day response from API.
      */
     private val apodObserver = Observer<APODResponse> {
-
         if (it != null && it.errorState == null) {
-
             Glide.with(this).load(it.hdImageUrl).into(image)
             detailTextView.text = it.explanation
             imageTitle.text = it.title

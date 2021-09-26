@@ -45,7 +45,6 @@
                 android:padding="2dp"
                 android:textColor="@color/white"
                 android:textSize="22sp"
-
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image" />
@@ -71,7 +70,6 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageTitle" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,8 +4,10 @@ import com.vikas.apod.model.APODResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import javax.security.auth.callback.Callback
 
+/**
+ * An interface which has all the REST API's defined, which will be used with retrofit client
+ */
 interface RestClient {
 
     @GET("/planetary/apod")

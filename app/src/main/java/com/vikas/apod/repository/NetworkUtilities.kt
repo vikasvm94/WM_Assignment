@@ -15,7 +15,9 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import okhttp3.Cache
 
-
+/**
+ * A utility class which provides helpfull methods for network related operations
+ */
 object NetworkUtilities {
 
     /**
@@ -62,6 +64,10 @@ object NetworkUtilities {
 
     val cacheSize = (5 * 1024 * 1024).toLong()
 
+    /**
+     * An API to check whether the internet is available or not
+     * returns true if available else false
+     */
     fun isNetworkConnected(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
