@@ -9,6 +9,9 @@ import com.bumptech.glide.Glide
 import com.vikas.apod.R
 import com.vikas.apod.model.APODResponse
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 /**
  * A main activity which is responsible for showing the astronomy picture of the day along with details
@@ -35,10 +38,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        getDate()
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mainViewModel.getAPOD(this).observe(this, apodObserver)
 
+    }
+
+
+    /**
+     * A method to diaplay current date on teh toolbar
+     */
+    private fun getDate() {
+        val c: Calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault())
+        val df = SimpleDateFormat("dd/MM/yyyy")
+        val currentDate: String = df.format(c.getTime())
+
+        supportActionBar?.title = "${getString(R.string.app_name)}       $currentDate"
     }
 
     /**
