@@ -8,6 +8,7 @@ Features and Architecture followed:
  
  
  Areas of techinical improvement:
+ 1) Progress bar could have added when the image is loading
  1) Depedency injection can be used for solving the depedencies
  2) Data binding can be used when app grows further
  3) Unit testing is not done because of time constraint 
